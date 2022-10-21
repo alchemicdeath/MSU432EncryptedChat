@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="281dp"
+        android:layout_height="141dp"
+        android:src="@drawable/metrostatelogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp" />
+
+    <EditText
+        android:id="@+id/edt_email"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/app_logo"
+        android:layout_marginTop="20dp"
+        android:hint="Email"
+        android:paddingLeft="13dp"
+        android:background="@drawable/text_area"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <EditText
+        android:id="@+id/edt_password"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/edt_email"
+        android:layout_marginTop="20dp"
+        android:hint="Password"
+        android:paddingLeft="13dp"
+        android:background="@drawable/text_area"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="Log in"
+        android:layout_below="@id/edt_password"
+        android:background="@drawable/button_color"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="50dp"/>
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="Sign Up"
+        android:layout_below="@id/edt_password"
+        android:background="@drawable/button_color"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="250dp"/>
+
+    <TextView
+        android:id="@+id/orLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯  or ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯"
+        android:layout_below="@id/login"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"/>
+
+    <ImageView
+        android:id="@+id/facebook"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_below="@id/orLogin"
+        android:src="@drawable/f_logo"/>
+    <ImageView
+        android:id="@+id/google"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/orLogin"
+        android:src="@drawable/g_logo"/>
+    <ImageView
+        android:id="@+id/twitter"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="300dp"
+        android:layout_below="@id/orLogin"
+        android:src="@drawable/t_login"/>
+
+</RelativeLayout>
