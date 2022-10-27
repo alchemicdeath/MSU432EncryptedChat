@@ -7,7 +7,7 @@ import android.widget.EditText
 import com.google.firebase.auth.FirebaseAuth
 import android.content.Intent
 import android.widget.Toast
-import com.example.myapplicationchat.R
+
 
 
 class LoginActivity : AppCompatActivity()
@@ -25,7 +25,28 @@ class LoginActivity : AppCompatActivity()
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login_activity)
+        setContentView(R.layout.login_layout)
+
+        supportActionBar?.hide()
+
+        auth = FirebaseAuth.getInstance()
+
+        email = findViewById(R.id.email)
+        password = findViewById(R.id.password)
+        login = findViewById(R.id.login)
+        signup = findViewById(R.id.signup)
+
+        signup.setOnClickListener {
+            val intent = Intent(this, SignupActivity::class.java)
+            startActivity(intent)
+        }
+
+        login.setOnClickListener {
+            val email = email.text.toString()
+            val password = password.text.toString()
+
+            login(email, password);
+        }
     }
 
     private fun login(email: String, password: String)
