@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity()
         setContentView(R.layout.activity_main)
 
         mAuth = FirebaseAuth.getInstance()
-        mDbRef = FirebaseDatabase.getInstance().getReference()
+        mDbRef = FirebaseDatabase.getInstance().reference
 
         userList = ArrayList()
         adapter = UserAdapter(this, userList)
@@ -57,9 +57,7 @@ class MainActivity : AppCompatActivity()
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
-
         })
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

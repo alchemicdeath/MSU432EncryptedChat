@@ -29,26 +29,34 @@ class LoginActivity : AppCompatActivity()
 
         supportActionBar?.hide()
 
+        // Instance of the Firebase Authentication SDK
         auth = FirebaseAuth.getInstance()
 
+        // Gets the information in the specified fields
         email = findViewById(R.id.email)
         password = findViewById(R.id.password)
+
+        // Buttons to Login or Signup
         login = findViewById(R.id.login)
         signup = findViewById(R.id.signup)
 
-        signup.setOnClickListener {
-            val intent = Intent(this, SignupActivity::class.java)
-            startActivity(intent)
-        }
-
+        // On Click for Login
         login.setOnClickListener {
             val email = email.text.toString()
             val password = password.text.toString()
 
             login(email, password);
         }
+
+        // On Click for Signup
+        signup.setOnClickListener {
+            val intent = Intent(this, SignupActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
+    // Login Function, using email and password as arguments
     private fun login(email: String, password: String)
     {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
