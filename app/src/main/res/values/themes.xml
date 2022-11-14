@@ -22,4 +22,8 @@
     <style name="Theme.MyApplicationChat.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MyApplicationChat.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.MSU432EncryptedChat.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MSU432EncryptedChat.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -37,23 +37,12 @@
         android:background="@drawable/text_area"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />
-    <EditText
-        android:id="@+id/signup_phone"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@id/signup_email"
-        android:layout_marginTop="20dp"
-        android:hint="Phone Number"
-        android:paddingLeft="13dp"
-        android:background="@drawable/text_area"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
 
     <EditText
         android:id="@+id/signup_password"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_below="@id/signup_phone"
+        android:layout_below="@id/signup_email"
         android:layout_marginTop="20dp"
         android:hint="Password"
         android:paddingLeft="13dp"

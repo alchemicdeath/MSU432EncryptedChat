@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.security.PublicKey
 
 
 class SignupActivity : AppCompatActivity()
@@ -17,14 +18,13 @@ class SignupActivity : AppCompatActivity()
     private lateinit var nameText: EditText
     private lateinit var emailText: EditText
     private lateinit var passwordText: EditText
-     private lateinit var phoneNumberText: EditText
 
     // Sign up button
     private lateinit var signup: Button
 
     // Firebase connections
     private lateinit var auth : FirebaseAuth
-    private lateinit var database : DatabaseReference
+    private lateinit var mDbRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,6 @@ class SignupActivity : AppCompatActivity()
         nameText = findViewById(R.id.signup_name)
         emailText = findViewById(R.id.signup_email)
         passwordText = findViewById(R.id.signup_password)
-        phoneNumberText = findViewById(R.id.signup_phone)
 
         // Button for SignUp
         signup = findViewById(R.id.signup_register)
@@ -50,23 +49,23 @@ class SignupActivity : AppCompatActivity()
             val name = nameText.text.toString()
             val email = emailText.text.toString()
             val password = passwordText.text.toString()
-            val phone = phoneNumberText.text.toString()
 
             // Call signup function
-            signUp(name, email, password, phone)
+            signUp(name, email, password)
         }
     }
 
     // SignUp Function
-    private fun signUp(name: String, email: String, password: String, phone: String)
+    private fun signUp(name: String, email: String, password: String)
     {
         // Logic
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this)
         { task ->
             if (task.isSuccessful)
             {
+                val publicKey = CryptoMethod().genKeys()
                 // code for jumping to home
-                addUsertoDatabase(name, email, phone, auth.currentUser?.uid!!)
+                addUsertoDatabase(name, email, auth.currentUser?.uid!!, publicKey.toString())
                 val intent = Intent(this@SignupActivity, MainActivity::class.java)
                 finish()
                 startActivity(intent)
@@ -80,14 +79,10 @@ class SignupActivity : AppCompatActivity()
     }
 
     // Add the user to the Firebase Database
-    private fun addUsertoDatabase(name: String, email: String, phone: String, uid: String)
+    private fun addUsertoDatabase(name: String, email: String, uid: String, public : String)
     {
-        // generate private and public key
-        // save private key to phone
-        // set public key
+        mDbRef = FirebaseDatabase.getInstance().getReference()
 
-
-        database = FirebaseDatabase.getInstance().reference
-        database.child("user").child(phone).setValue(User(name, email, phone, uid))
+        mDbRef.child("user").child(uid).setValue(User(name, email, uid, public))
     }
 }
