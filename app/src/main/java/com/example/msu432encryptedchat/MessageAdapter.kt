@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.firebase.auth.FirebaseAuth
+import android.util.Log
 
 // Adapters provide a binding from an app-specific data set to views that are displayed within a RecyclerView.
 class MessageAdapter(val context: Context, private val messageList: ArrayList<Message>): RecyclerView.Adapter<ViewHolder>()
@@ -44,7 +45,11 @@ class MessageAdapter(val context: Context, private val messageList: ArrayList<Me
         {
             // Send View holder
             holder as SentViewHolder
-            holder.sentMessage.text = currentMessage.message
+            var decrypted =
+                MessageTransform.decryptMessage(currentMessage.message.toString(),
+                    2011.0, 3127.0)
+            holder.sentMessage.text = decrypted
+            Log.v("MessageAdapter", currentMessage.message.toString())
         }
         else
         {

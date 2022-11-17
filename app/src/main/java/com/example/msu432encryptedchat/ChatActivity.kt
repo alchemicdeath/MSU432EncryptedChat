@@ -3,6 +3,7 @@ package com.example.msu432encryptedchat
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -70,11 +71,12 @@ class ChatActivity : AppCompatActivity()
         // Get a reference to location relative to this one
         // Add a listener for changes in the data at this location.
         // A DataSnapshot instance contains data from a Firebase Database location.
-        //
         fireDBRef.child("chats").child(senderRoom!!).child("messages")
-            .addValueEventListener(object: ValueEventListener{
+            .addValueEventListener(object: ValueEventListener
+            {
                 @SuppressLint("NotifyDataSetChanged")
-                override fun onDataChange(snapshot: DataSnapshot) {
+                override fun onDataChange(snapshot: DataSnapshot)
+                {
 
                     // Removes all of the elements from this list.
                     // The list will be empty after this call returns.
@@ -100,13 +102,15 @@ class ChatActivity : AppCompatActivity()
         // Register a callback to be invoked when this view is clicked.
         sendButton.setOnClickListener {
             // Returns a string representation of the object.
-            val message = messageBox.text.toString()
+            var message = messageBox.text.toString()
+            message = MessageTransform.encryptMessage(59, 53,message).toString()
             val messageObject = Message(message, senderUid)
 
             fireDBRef.child("chats").child(senderRoom!!).child("messages").push()
                 .setValue(messageObject).addOnSuccessListener {
                     fireDBRef.child("chats").child(receiverRoom!!).child("messages").push()
                         .setValue(messageObject)
+                    MessageTransform.encryptMessage(59, 53,message)
                 }
             // Sets the text to be displayed.
             messageBox.setText("")
