@@ -1,13 +1,15 @@
 package com.example.msu432encryptedchat
 
+import android.annotation.SuppressLint
 import android.util.Log
 import java.math.BigDecimal
-import java.math.BigInteger
+import kotlin.math.IEEErem
 import kotlin.math.pow
 
 object MessageTransform
 {
     // This function returns the gcd or greatest common divisor
+    @SuppressLint("SuspiciousIndentation")
     fun gcd(a: Double, h: Double): Double
     {
         var a = a
@@ -27,55 +29,57 @@ object MessageTransform
         }
     }
 
-    /*
-        * Encrypts the message
-        * Takes in two primes to utilize for key creation
-        * Will be modified to be the keys latter one
-        * Will return the encrypted message
-    */
-    fun encryptMessage( p: Int, q: Int, message: String): String
+    // Will return the encrypted message
+    fun encryptMessage( e: Int, n: Int, message: String): String
     {
-        val encrypted : MutableList<Char> = mutableListOf()     // List for the encrypted letters
-        val n = p*q                                             // product of p and q
-        val e = 3                                               // exponent for encryption
-        message.toByteArray(charset("UTF-8"))        // Convert Message to ByteArray
-       // Log.v("Print: ", message)
+
+        // Convert Message to ByteArray
+        println("Message $message")
+
         var eMsg = ""
-        for(element in message)
+
+        for(i in message.indices)
         {
-            val c = element.code.toDouble().pow(e) % n               // encrypt the current index
-            // Log.v("", c)
-            val encryptedC = BigDecimal.valueOf(c).toBigInteger()   // convert c to BigInteger
-            // Log.v("", C)
-            encrypted.add(encryptedC.toInt().toChar())              // Add encrypted index to list
-            // Log.v("", C.toInt().toChar())
-            eMsg += encryptedC.toInt().toChar()
+            // encrypt element
+            val c = ((message[i].code.toDouble().pow(e))%n)
+            // encrypted.add(c)
+            println("Index: ${message[i]} Char: $c")
+            eMsg += c.toInt().toChar()
         }
         // for(i in message.indices){Log.v("", encrypted[i])}
         // Log.v("Print string: ", eMsg)
         return eMsg
     }
 
-    fun decryptMessage(list: String, d: Double, n: Double): String
+    var d = ChatActivity().setD()
+    var n = ChatActivity().setN()
+    fun setValues(ds: Double, ns: Double)
     {
-        var dMsg = ""                                               // For converted message
+        d = ds
+        n = ns
+        Log.v("Values","d $d\nn $n")
+    }
 
-        // Loop the string message and convert each one
-        // into the correct value of the original message
-        for(i in list.indices)
+    // Takes in the users encryption key and then decrypts the message.
+    // Will return the decrypted message
+    fun decryptMessage(message : String): String
+    {
+        println(d)
+        println(n)
+        message.toByteArray()
+
+        // For converted message
+        var dMsg = ""
+
+        for(i in message.indices)
         {
-            val c = list[i].code.toDouble()                         // Convert index char to double
-            // Log.v("", c)
-            val bigintN = BigInteger.valueOf(n.toLong())            // Convert n to BigInt for use
-            // Log.v("", bigintNN)
-            val encryptedC = BigDecimal.valueOf(c).toBigInteger()   // Convert c to BigInt for use
-            // Log.v("", encryptedC)
-            val m = (encryptedC.pow(d.toInt()))%bigintN             // Decrypt the original value
-            // Log.v("", m)
-            dMsg += m.toInt().toChar()                              // Add current index to string
-            // Log.v("", dMsg)
+            var m = (message[i].toInt().toBigDecimal().pow(d.toInt())).remainder(n.toBigDecimal())
+            println("$m")
+            dMsg += m.toInt().toChar()
         }
+
         // [Debugging] Log.v("Decrypt", dMsg)
         return dMsg
     }
+
 }

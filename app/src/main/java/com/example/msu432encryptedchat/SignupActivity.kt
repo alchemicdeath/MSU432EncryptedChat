@@ -2,6 +2,7 @@ package com.example.msu432encryptedchat
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -9,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.security.PublicKey
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
 
 
 class SignupActivity : AppCompatActivity()
@@ -63,9 +66,8 @@ class SignupActivity : AppCompatActivity()
         { task ->
             if (task.isSuccessful)
             {
-                val publicKey = CryptoMethod().genKeys()
                 // code for jumping to home
-                addUsertoDatabase(name, email, auth.currentUser?.uid!!, publicKey.toString())
+                addUsertoDatabase(name, email, auth.currentUser?.uid!!)
                 val intent = Intent(this@SignupActivity, MainActivity::class.java)
                 finish()
                 startActivity(intent)
@@ -79,10 +81,57 @@ class SignupActivity : AppCompatActivity()
     }
 
     // Add the user to the Firebase Database
-    private fun addUsertoDatabase(name: String, email: String, uid: String, public : String)
+    private fun addUsertoDatabase(name: String, email: String, uid: String)
     {
         mDbRef = FirebaseDatabase.getInstance().getReference()
 
-        mDbRef.child("user").child(uid).setValue(User(name, email, uid, public))
+        // Get the creation of the users public and private keys
+        val keys = GenerateUserKeys.generateKeys()
+        val e = keys[0]
+        val n = keys[1]
+        var d = keys[2]
+        val pub = "$e-$n"
+        Log.e("$e-$n","-$d")
+
+        // Set the files name
+        val fileName = "$uid.txt"
+        // val of the decryption key
+        val string1 = keys[2].toString() + "\n" + keys[1].toString()
+
+        var outFile : FileOutputStream? = null
+        // writes the data to the files
+        try
+        {
+            outFile = openFileOutput(fileName, MODE_PRIVATE)
+            outFile.write(string1.toByteArray())
+
+            Toast.makeText(this,"Saved File to $filesDir/$fileName",
+                Toast.LENGTH_LONG).show()
+
+        }
+        catch (e: FileNotFoundException)
+        {
+            e.printStackTrace()
+        }
+        catch (e: Error)
+        {
+            e.printStackTrace()
+        }
+        finally {
+            if(outFile != null)
+            {
+                try {
+                    outFile.close()
+                }
+                catch (e : IOException)
+                {
+                    e.printStackTrace()
+                }
+            }
+        }
+
+        // Add the users data to the database
+        mDbRef.child("user").child(uid)
+                                    .setValue(User(name, email, uid, pub))
     }
 }

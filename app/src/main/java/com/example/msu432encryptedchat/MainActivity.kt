@@ -59,10 +59,12 @@ class MainActivity : AppCompatActivity()
                 // The list will be empty after this call returns.
                 userList.clear()
 
-                // Gives access to all of the immediate children of this snapshot. Can be used in native for loops:
+                // Gives access to all of the immediate children of this snapshot.
+                // Can be used in native for loops:
                 for(postSnapshot in snapshot.children)
                 {
-                    // This method is used to marshall the data contained in this snapshot into a
+                    // This method is used to marshall the data contained in
+                    // this snapshot into a
                     // class of your choosing.
                     val currentUser = postSnapshot.getValue(User::class.java)
 

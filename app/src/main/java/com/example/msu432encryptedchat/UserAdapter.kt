@@ -11,15 +11,20 @@ import androidx.recyclerview.widget.RecyclerView
 
 /**
     * Adapter for Users, extends the RecyclerView ViewHolder
-    * A subclass of RecyclerView.Adapter responsible for providing views that represent items in a data set.
+    * A subclass of RecyclerView.Adapter responsible for providing views that
+    * represent items in a data set.
 */
-class UserAdapter(val context: Context, val userList: ArrayList<User>): RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+class UserAdapter(val context: Context, val userList: ArrayList<User>):
+    RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
+            UserViewHolder
     {
-        // Instantiates a layout XML file into its corresponding View  objects. It is never used directly.
+        // Instantiates a layout XML file into its corresponding View  objects.
+        // It is never used directly.
         // Obtains the LayoutInflater from the given context.
-        val view: View = LayoutInflater.from(context).inflate(R.layout.user_layout, parent, false)
+        val view: View = LayoutInflater.from(context).inflate(
+            R.layout.user_layout, parent, false)
         return UserViewHolder(view)
     }
 
@@ -28,9 +33,9 @@ class UserAdapter(val context: Context, val userList: ArrayList<User>): Recycler
         // currentUser is set to the userlists current position
         val currentUser = userList[position]
 
-        // Sets the user name to the current users name
-        // which you can do with text strings in XML resource files
-        // currentUser is set to the userlists current name
+        // Sets the user name to the current users name which you can do with
+        // text strings in XML resource files currentUser is set to the
+        // userlists current name
         holder.textName.text = currentUser.name
 
         // Onclick for entering chat with selected user
@@ -50,12 +55,13 @@ class UserAdapter(val context: Context, val userList: ArrayList<User>): Recycler
         return userList.size
     }
 
-    // A ViewHolder describes an item view and metadata about its place within the RecyclerView.
+    // A ViewHolder describes an item view and metadata about its place within
+    // the RecyclerView.
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
-        // Finds the first descendant view with the given ID, the view itself if the ID matches
-        // getId() , or null if the ID is invalid (< 0) or there is no matching view in the
-        // hierarchy.
+        // Finds the first descendant view with the given ID, the view itself
+        // if the ID matches getId() , or null if the ID is invalid (< 0) or
+        // there is no matching view in the hierarchy.
         // Sets the value to the id's value
         val textName: TextView = itemView.findViewById(R.id.txt_name)
     }
