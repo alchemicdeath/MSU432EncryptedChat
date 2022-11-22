@@ -1,8 +1,6 @@
 package com.example.msu432encryptedchat
 
-import kotlin.math.exp
 import kotlin.random.Random
-
 
 internal object GenerateUserKeys
 {
@@ -10,21 +8,21 @@ internal object GenerateUserKeys
 
     fun generateKeys(): Array<Int>
     {
-        var listPrim : MutableList<Int> = mutableListOf(7, 11, 13, 17,
+        val listPrim : MutableList<Int> = mutableListOf(7, 11, 13, 17,
                                                         19, 23, 29, 31, 37, 41,
                                                         43, 47, 53, 59, 61, 67,
                                                         71, 73, 79, 83, 89, 97)
 
-        var p = listPrim[Random.nextInt(listPrim.size/2)]
-        var q = listPrim[Random.nextInt(listPrim.size/2) + 11]
+        val p = listPrim[Random.nextInt(listPrim.size/2)]
+        val q = listPrim[Random.nextInt(listPrim.size/2) + 11]
 
         // Get N
-        var n = p * q
+        val n = p * q
         println("n: $n")
         println("p: $p")
         println("q: $q")
 
-        var phi = (p-1)*(q-1)
+        val phi = (p-1)*(q-1)
 
         println("phi: $phi")
 
@@ -43,17 +41,17 @@ internal object GenerateUserKeys
         {
             if (gcd(e, phi) == 1)
             {
-                break;
+                break
             }
             e++
         }
 
         // d is for private key exponent
-        var d = 0
+        val d : Int
         var k = 0
         while(true)
         {
-            if((1 + k * phi) % e === 0)
+            if((1 + k * phi) % e == 0)
             {
                 d  = (1 + (k * phi)) / e
                 break

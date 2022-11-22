@@ -1,38 +1,24 @@
 package com.example.msu432encryptedchat
 
-import android.annotation.SuppressLint
+
 import android.util.Log
-import java.math.BigDecimal
-import kotlin.math.IEEErem
 import kotlin.math.pow
 
 object MessageTransform
 {
-    // This function returns the gcd or greatest common divisor
-    @SuppressLint("SuspiciousIndentation")
-    fun gcd(a: Double, h: Double): Double
+    // Retrieve the current users private keys
+    private var d = ChatActivity().setD()
+    private var n = ChatActivity().setN()
+    // Sets the current users keys for decryption
+    fun setValues(ds: Double, ns: Double)
     {
-        var a = a
-        var h = h
-        var temp: Double
-
-        while (true)
-        {
-            temp = a % h
-
-            if (temp == 0.0)
-                return h
-                println("true")
-
-            a = h
-            h = temp
-        }
+        d = ds
+        n = ns
+        Log.v("Values","d $d\nn $n")
     }
-
     // Will return the encrypted message
     fun encryptMessage( e: Int, n: Int, message: String): String
     {
-
         // Convert Message to ByteArray
         println("Message $message")
 
@@ -51,15 +37,6 @@ object MessageTransform
         return eMsg
     }
 
-    var d = ChatActivity().setD()
-    var n = ChatActivity().setN()
-    fun setValues(ds: Double, ns: Double)
-    {
-        d = ds
-        n = ns
-        Log.v("Values","d $d\nn $n")
-    }
-
     // Takes in the users encryption key and then decrypts the message.
     // Will return the decrypted message
     fun decryptMessage(message : String): String
@@ -73,7 +50,7 @@ object MessageTransform
 
         for(i in message.indices)
         {
-            var m = (message[i].toInt().toBigDecimal().pow(d.toInt())).remainder(n.toBigDecimal())
+            val m = (message[i].code.toBigDecimal().pow(d.toInt())).remainder(n.toBigDecimal())
             println("$m")
             dMsg += m.toInt().toChar()
         }
@@ -81,5 +58,4 @@ object MessageTransform
         // [Debugging] Log.v("Decrypt", dMsg)
         return dMsg
     }
-
 }

@@ -1,13 +1,11 @@
 package com.example.msu432encryptedchat
 
-import java.security.PublicKey
-
 class User
 {
     var name: String?  = null
-    var email: String? = null
+    private var email: String? = null
     var uid: String? = null
-    var public : String? = null
+    private var public : String? = null
 
     constructor()
 

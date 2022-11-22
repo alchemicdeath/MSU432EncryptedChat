@@ -13,8 +13,8 @@ import android.widget.Toast
 class LoginActivity : AppCompatActivity()
 {
     // Text area entries : used to get input information
-    lateinit var email: EditText
-    lateinit var password: EditText
+    private lateinit var email: EditText
+    private lateinit var password: EditText
 
     // Action buttons to either login or signup
     private lateinit var login: Button
@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity()
             val email = email.text.toString()
             val password = password.text.toString()
 
-            login(email, password);
+            login(email, password)
         }
 
         // On Click for Signup

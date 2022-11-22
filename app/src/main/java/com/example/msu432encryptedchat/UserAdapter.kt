@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
     * A subclass of RecyclerView.Adapter responsible for providing views that
     * represent items in a data set.
 */
-class UserAdapter(val context: Context, val userList: ArrayList<User>):
+class UserAdapter(val context: Context, private val userList: ArrayList<User>):
     RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):

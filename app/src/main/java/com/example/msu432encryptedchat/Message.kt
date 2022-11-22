@@ -7,7 +7,7 @@ class Message
 
     constructor()
 
-    constructor(message1: String?, senderId: String?)
+    constructor(message: String?, senderId: String?)
     {
         this.message = message
         this.senderId = senderId

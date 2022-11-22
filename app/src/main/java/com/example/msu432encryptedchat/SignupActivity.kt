@@ -83,13 +83,13 @@ class SignupActivity : AppCompatActivity()
     // Add the user to the Firebase Database
     private fun addUsertoDatabase(name: String, email: String, uid: String)
     {
-        mDbRef = FirebaseDatabase.getInstance().getReference()
+        mDbRef = FirebaseDatabase.getInstance().reference
 
         // Get the creation of the users public and private keys
         val keys = GenerateUserKeys.generateKeys()
         val e = keys[0]
         val n = keys[1]
-        var d = keys[2]
+        val d = keys[2]
         val pub = "$e-$n"
         Log.e("$e-$n","-$d")
 

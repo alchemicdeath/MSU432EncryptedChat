@@ -91,6 +91,7 @@ class ChatActivity : AppCompatActivity()
 
         // Gets the messages from firebase to display
         senderChat.addValueEventListener(object:ValueEventListener {
+            @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot)
             {
                 MessageTransform.setValues(sendD.toDouble(), sendN.toDouble())
